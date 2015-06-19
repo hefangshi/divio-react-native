@@ -7,6 +7,7 @@
 var React = require('react-native');
 var articleModel = require('./models/article.js');
 var user = require('./models/user.js');
+var ArticleDetail = require('./ArticleDetail.js');
 var styles;
 
 var {
@@ -15,6 +16,7 @@ var {
   View,
   Image,
   ScrollView,
+  TouchableHighlight,
   ListView
 } = React;
 
@@ -39,34 +41,48 @@ var ArticleList = React.createClass({
       return this.state.dataSource.cloneWithRows(articles.topics);
     });
   },
+  navToArticle: function (article) {
+    this.props.getNav().push({
+        title: article.title,
+        component: ArticleDetail,
+        passProps: {
+            id: article.id,
+            nav: this.props.getNav()
+        }
+    });
+  },
   renderArticleItem: function (article) {
     var authorAvatar = user.getUserAvatar(article.user);
     return (
-      <View style={styles.artileItem}>
-        <Image
-          source = {authorAvatar}
-          style = {styles.authorImage}/>
-        <View style={styles.articleInfo}>
-          <Text style={styles.articleTitle}>
-            {article.title}
-          </Text>
-          <View style={styles.catalog}>
-            { article.pro_id &&
-              <Text style={styles.proStyle}>
-                专栏
+      <TouchableHighlight onPress={() => {
+        this.navToArticle(article);
+      }}>
+        <View style={styles.artileItem}>
+          <Image
+            source = {authorAvatar}
+            style = {styles.authorImage}/>
+          <View style={styles.articleInfo}>
+            <Text style={styles.articleTitle}>
+              {article.title}
+            </Text>
+            <View style={styles.catalog}>
+              { article.pro_id &&
+                <Text style={styles.proStyle}>
+                  专栏
+                </Text>
+              }
+              <Text style={styles.nodeStyle}>
+                {article.node.name}
               </Text>
-            }
-            <Text style={styles.nodeStyle}>
-              {article.node.name}
+            </View>
+          </View>
+          <View style={styles.readInfoContainer}>
+            <Text style={styles.readInfo}>
+              {article.replies_count} 回复
             </Text>
           </View>
         </View>
-        <View style={styles.readInfoContainer}>
-          <Text style={styles.readInfo}>
-            {article.replies_count} 回复
-          </Text>
-        </View>
-      </View>
+      </TouchableHighlight>
     );
   },
   render: function () {

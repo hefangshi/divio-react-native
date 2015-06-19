@@ -20,14 +20,18 @@ var divio = React.createClass({
   getInitialState: function () {
     return {};
   },
-  getRoutes: () => {
+  getRoutes: function() {
+    var getNav = function () {
+      console.log(this);
+      return this.refs.nav;
+    }.bind(this);
     return [{
       id: 'Index',
       title: '首页',
       icon: 'bookmarks',
       render: function () {
         return (
-          <ArticleList catalog='Index'></ArticleList>
+          <ArticleList catalog='Index' getNav={getNav}></ArticleList>
         );
       }
     }, {
@@ -36,7 +40,7 @@ var divio = React.createClass({
       icon: 'most-viewed',
       render: function () {
         return (
-          <ArticleList catalog='Pro'></ArticleList>
+          <ArticleList catalog='Pro' getNav={getNav}></ArticleList>
         );
       }
     }, {
@@ -67,13 +71,15 @@ var divio = React.createClass({
       title: 'Div.IO',
       passProps: {
         routes: this.getRoutes(),
-        defaultRoute: 'Index'
+        defaultRoute: 'Index',
+        nav: this.refs.nav
       }
     };
   },
   render: function () {
     return (
         <NavigatorIOS
+            ref="nav"
             style={styles.container}
             initialRoute={this.getInitialRoute()}/>
     );

@@ -9,6 +9,17 @@ module.exports.getArticleList = function (type, page: Number) {
     return provider.getList(page).then((list) => provider.format(page, list));
 };
 
+
+module.exports.getArticle = function (id: Number) {
+    console.log('fetch' + 'http://div.io/api/topic/' + id);
+    return fetch.fetch('http://div.io/api/topic/' + id)
+        .then((response) => response.json()).then((data) => {
+            if (!data.knots) {
+                throw new Error('need login');
+            }
+        });
+};
+
 var supportedProvider = {
     'Index': IndexArticle,
     'Node': NodeArticle,
