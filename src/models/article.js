@@ -2,30 +2,6 @@
 var fetch = require('fetch');
 var nodeModel = require('./node.js');
 
-module.exports.getArticleList = function (type, page: Number) {
-    var typeSplit = type.split('_');
-    var ArticleClass = typeSplit[0];
-    var provider = new supportedProvider[ArticleClass](typeSplit[1]);
-    return provider.getList(page).then((list) => provider.format(page, list));
-};
-
-
-module.exports.getArticle = function (id: Number) {
-    console.log('fetch' + 'http://div.io/api/topic/' + id);
-    return fetch.fetch('http://div.io/api/topic/' + id)
-        .then((response) => response.json()).then((data) => {
-            if (!data.knots) {
-                throw new Error('need login');
-            }
-        });
-};
-
-var supportedProvider = {
-    'Index': IndexArticle,
-    'Node': NodeArticle,
-    'Pro': ProArticle
-}
-
 class ArticleProvider {
     constructor() {}
 
@@ -59,14 +35,14 @@ class ProArticle extends ArticleProvider {
     format(page: Number, list: Array < any > ) {
         list.topics = list.pro;
         list.pro = null;
-        return super(page, list);
+        return super.format(page, list);
     }
 }
 
 class NodeArticle extends ArticleProvider {
     constructor(node: Number) {
-        this.node = node;
         super();
+        this.node = node;
     }
 
     getList(page: Number) {
@@ -74,3 +50,28 @@ class NodeArticle extends ArticleProvider {
             .then((response) => response.json());
     }
 }
+
+module.exports.getArticleList = function (type, page: Number) {
+    var typeSplit = type.split('_');
+    var ArticleClass = typeSplit[0];
+    var provider = new supportedProvider[ArticleClass](typeSplit[1]);
+    return provider.getList(page).then((list) => provider.format(page, list));
+};
+
+
+module.exports.getArticle = function (id: Number) {
+    return fetch.fetch('http://div.io/api/topic/' + id)
+        .then((response) => response.json()).then((data) => {
+            if (!data.knots) {
+                throw new Error('need login');
+            }
+            return data;
+        });
+};
+
+var supportedProvider = {
+    'Index': IndexArticle,
+    'Node': NodeArticle,
+    'Pro': ProArticle
+}
+

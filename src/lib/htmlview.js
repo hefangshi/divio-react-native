@@ -1,5 +1,5 @@
-var htmlparser = require("./vendor/htmlparser2");
-var entities = require('./vendor/entities')
+var htmlparser = require("../vendor/htmlparser2");
+var entities = require('../vendor/entities')
 var React = require('react-native');
 
 

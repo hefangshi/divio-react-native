@@ -16,9 +16,9 @@
 'use strict';
 
 var React = require('react-native');
-var user = require('./models/user.js');
-var articleModel = require('./models/article.js');
-var HTMLView = require('./HTMLView.js');
+var user = require('../models/user.js');
+var articleModel = require('../models/article.js');
+var HTMLView = require('../lib/htmlview.js');
 
 var {
     Image,

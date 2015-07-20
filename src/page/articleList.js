@@ -5,9 +5,9 @@
 'use strict';
 
 var React = require('react-native');
-var articleModel = require('./models/article.js');
-var user = require('./models/user.js');
-var ArticleDetail = require('./ArticleDetail.js');
+var articleModel = require('../models/article.js');
+var user = require('../models/user.js');
+var ArticleDetail = require('./articleDetail.js');
 var styles;
 
 var {
@@ -54,7 +54,7 @@ var ArticleList = React.createClass({
   renderArticleItem: function (article) {
     var authorAvatar = user.getUserAvatar(article.user);
     return (
-      <TouchableHighlight onPress={() => {
+      <TouchableHighlight underlayColor="rgba(0, 0, 0, 0.15)" onPress={() => {
         this.navToArticle(article);
       }}>
         <View style={styles.artileItem}>
@@ -99,13 +99,12 @@ var ArticleList = React.createClass({
 
 styles = StyleSheet.create({
   listView: {
-    paddingTop: 38
   },
   artileItem: {
     flex: 1,
     flexDirection: 'row',
-    marginLeft: 5,
-    marginBottom: 8,
+    paddingTop: 5,
+    paddingLeft: 5,
     paddingBottom: 8,
     borderBottomWidth: 1,
     borderBottomColor: '#ececec'

@@ -5,24 +5,8 @@
   "scripts": {
     "start": "node_modules/react-native/packager/packager.sh"
   },
-  "eslintConfig": {
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "env": {
-      "es6": true,
-      "browser": true,
-      "node": true
-    },
-    "rules": {
-      "quotes": [
-        2,
-        "single"
-      ]
-    }
-  },
   "dependencies": {
-    "bluebird": "^2.9.30",
-    "react-native": "^0.4.4"
+    "bluebird": "*",
+    "react-native": "^0.7.1"
   }
 }
