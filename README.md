@@ -2,6 +2,8 @@ divio-react-native
 
 -----------------------------
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/hefangshi/divio-react-native.svg)](https://greenkeeper.io/)
+
 ## TODO
 
 以下内容均可以认领，认领方式为新增一个issue告知大概的完成时间即可，我们会在issue中详细讨论具体的功能实现
