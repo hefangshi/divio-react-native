@@ -7,6 +7,6 @@
   },
   "dependencies": {
     "bluebird": "*",
-    "react-native": "^0.7.1"
+    "react-native": "^0.44.0"
   }
 }
